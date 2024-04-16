@@ -1,5 +1,4 @@
 # Implementation-of-Decision-Tree-Classifier-Model-for-Predicting-Employee-Churn
-
 ## AIM:
 To write a program to implement the Decision Tree Classifier Model for Predicting Employee Churn.
 
@@ -17,64 +16,49 @@ To write a program to implement the Decision Tree Classifier Model for Predictin
 4.using decisiontreeclassifier, find the predicted values
 
 5.print the result
+
 ## Program:
 ```
-/*
 Program to implement the Decision Tree Classifier Model for Predicting Employee Churn.
 Developed by: Sudharsanam R K
 RegisterNumber:  212222040163
-*/
 ```
 ```python
 import pandas as pd
-
 # Load the dataset
 data = pd.read_csv("/content/Employee_EX6.csv")
-
 # Display the first few rows of the dataset
 data.head()
-
 # Get information about the dataset
 data.info()
-
 # Check for missing values
 data.isnull().sum()
-
 # Count the number of employees who left and stayed
 data["left"].value_counts()
-
 # Encode the 'salary' column
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
 data["salary"] = le.fit_transform(data["salary"])
-
 # Display the first few rows of the modified dataset
 data.head()
-
 # Select features (independent variables)
 x = data[["satisfaction_level", "last_evaluation", "number_project", "average_montly_hours", "time_spend_company", "Work_accident", "promotion_last_5years", "salary"]]
 x.head()  # No departments and no left
-
 # Select the target variable (dependent variable)
 y = data["left"]
-
 # Split the dataset into training and testing sets
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=100)
-
 # Train the Decision Tree classifier
 from sklearn.tree import DecisionTreeClassifier
 dt = DecisionTreeClassifier(criterion="entropy")
 dt.fit(x_train, y_train)
-
 # Predict the target variable for the test set
 y_pred = dt.predict(x_test)
-
 # Calculate the accuracy of the model
 from sklearn import metrics
 accuracy = metrics.accuracy_score(y_test, y_pred)
 accuracy
-
 # Predict whether an employee will leave based on given features
 dt.predict([[0.5, 0.8, 9, 260, 6, 0, 1, 2]])
 ```
